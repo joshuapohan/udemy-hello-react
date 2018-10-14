@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- REACT LIBRARY -->
+  <script src="https://unpkg.com/react@15.5.4/dist/react.js"></script>
+  <!-- REACT DOM LIBRARY -->
+  <script src="https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
+  <!-- BABEL LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Meal Vote</title>
+</head>
+<body>
+  <div id="app">React has not rendered yet</div>
+
+  <script type="text/babel">
+
+    class ButtonPanel extends React.Component{
+
+      constructor(props){
+        super(props);
+        this.state = {
+          previousVal: '',
+          currentVal: '',
+          result: '',
+          currentOperator: ''
+        }
+      }
+
+      onClickHandlerEqualButton(){
+        var valOne = parseInt(this.state.previousVal);
+        var valTwo = parseInt(this.state.currentVal);
+
+        this.setState({
+          previousVal: '',
+          currentOperator:''
+        });
+
+        switch(this.state.currentOperator){
+          case '+':
+            this.setState({
+              currentVal: String(valOne + valTwo)
+            });
+            break;
+          case '-':
+            this.setState({
+              currentVal: String(valOne - valTwo)
+            });
+            break;
+          case '*':
+            this.setState({
+              currentVal: String(valOne * valTwo)
+            });
+            break;
+          case '/':
+            this.setState({
+              currentVal: String(valOne / valTwo)
+            });
+            break;
+        }
+      }
+
+      onClickHandlerButtonClear(){
+        this.setState({
+          previousVal: '',
+          currentVal: '',
+          result: '',
+          currentOperator:''
+        });
+      }
+
+      onClickHandlerButtonInputAdd(){
+        this.setState({
+          previousVal: this.state.currentVal,
+          currentVal: '',
+          currentOperator: '+'
+        });
+      }
+
+      onClickHandlerButtonInputSubstract(){
+        this.setState({
+          previousVal: this.state.currentVal,
+          currentVal: '',
+          currentOperator: '-'
+        });
+      }
+
+      onClickHandlerButtonInputMultiply(){
+        this.setState({
+          previousVal: this.state.currentVal,
+          currentVal: '',
+          currentOperator: '*'
+        });
+      }
+
+      onClickHandlerButtonInputDivide(){
+        this.setState({
+          previousVal: this.state.currentVal,
+          currentVal: '',
+          currentOperator: '/'
+        });
+      }
+
+      onClickHandlerButtonInput1(){
+        if(this.state.currentOperator == ''){
+          this.setState({
+            currentVal: this.state.currentVal + '1'
+          });
+        }
+        else{
+          this.setState({
+            previousVal: this.state.previousVal + '1'
+          });
+        }
+      }
+
+      onClickHandlerButtonInput2(){
+        this.setState({
+          currentVal: this.state.currentVal + '2'
+        });
+      }
+
+      onClickHandlerButtonInput3(){
+        this.setState({
+          currentVal: this.state.currentVal + '3'
+        });
+      }
+
+      onClickHandlerButtonInput4(){
+        this.setState({
+          currentVal: this.state.currentVal + '4'
+        });
+      }
+
+      onClickHandlerButtonInput5(){
+        this.setState({
+          currentVal: this.state.currentVal + '5'
+        });
+      }
+
+      onClickHandlerButtonInput6(){
+        this.setState({
+          currentVal: this.state.currentVal + '6'
+        });
+      }
+
+      onClickHandlerButtonInput7(){
+        this.setState({
+          currentVal: this.state.currentVal + '7'
+        });
+      }
+
+      onClickHandlerButtonInput8(){
+        this.setState({
+          currentVal: this.state.currentVal + '8'
+        });
+      }
+
+      onClickHandlerButtonInput9(){
+        this.setState({
+          currentVal: this.state.currentVal + '9'
+        });
+      }
+
+      render(){
+        
+        var tableStyle = {
+          cellSpacing:0,
+          cellPadding:0,
+          display:'block',
+          margin: 0
+        }
+
+        var cellStyle = {
+          height:50,
+          width:100
+        }
+
+        return(
+          <table style={tableStyle}>
+            <tbody>
+              <tr>
+                <td><h2>{this.state.previousVal}</h2></td>
+              </tr>
+              <tr>
+                <td><h2>{this.state.currentOperator}</h2></td>
+              </tr>
+              <tr>
+                <td><h1>{this.state.currentVal}</h1></td>
+              </tr>
+              <tr style={tableStyle}>
+                <td style={cellStyle}><CalcButton name='1' func={this.onClickHandlerButtonInput1.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='2' func={this.onClickHandlerButtonInput2.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='3' func={this.onClickHandlerButtonInput3.bind(this)}/></td>
+              </tr>
+              <tr style={tableStyle}>
+                <td style={cellStyle}><CalcButton name='4' func={this.onClickHandlerButtonInput4.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='5' func={this.onClickHandlerButtonInput5.bind(this)}/></td>
+                <td style={cellStyle} ><CalcButton name='6'func={this.onClickHandlerButtonInput6.bind(this)}/></td>
+              </tr>
+              <tr style={tableStyle}>
+                <td style={cellStyle}><CalcButton name='7' func={this.onClickHandlerButtonInput7.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='8' func={this.onClickHandlerButtonInput8.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='9' func={this.onClickHandlerButtonInput9.bind(this)}/></td>
+              </tr>
+              <tr style={tableStyle}>
+                <td style={cellStyle}><CalcButton name='+' func={this.onClickHandlerButtonInputAdd.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='-' func={this.onClickHandlerButtonInputSubstract.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='*' func={this.onClickHandlerButtonInputMultiply.bind(this)}/></td>
+              </tr>
+              <tr style={tableStyle}>
+                <td style={cellStyle}><CalcButton name='/' func={this.onClickHandlerButtonInputDivide.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='C' func={this.onClickHandlerButtonClear.bind(this)}/></td>
+                <td style={cellStyle}><CalcButton name='=' func={this.onClickHandlerEqualButton.bind(this)}/></td>
+              </tr>
+            </tbody>
+          </table>
+        );
+      }
+
+    }
+
+    class CalcButton extends React.Component{
+
+      constructor(props){
+        super(props);
+        this.state = {
+          name: props.name
+        };
+        this.onClickHandler = this.props.func;
+      }
+
+      render(){
+        
+        var buttonStyle = {
+          backgroundColor: 'purple',
+          height:'100%',
+          width:'100%',
+          display:'inline-block',
+          margin: 0
+        };
+
+        var textStyle = {
+          color:'white',
+          margin: 0,
+          textAlign:'center',
+          fontSize:30
+        }
+      
+        var spanStyle = {
+          lineHeight:2,
+          textAlign:'center'
+        }
+
+        let name = this.state.name;
+
+        return(
+          <div style={buttonStyle} onClick={this.onClickHandler}>
+            <span style={spanStyle}><p style={textStyle}>{this.state.name}</p></span>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <div>
+        <ButtonPanel/>
+      </div>,
+      document.getElementById("app")
+    );
+  </script>
+
+</body>
+</html>
+
