@@ -1,0 +1,222 @@
+<!-- INSERT BOILER PLATE CODE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- REACT LIBRARY -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <!-- <script src="https://unpkg.com/react@15.5.4/dist/react.js"></script> -->
+  <!-- REACT DOM LIBRARY -->
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!--<script src="https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script> -->
+  <!-- BABEL LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <title>Boiler Plate Code</title>
+
+</head>
+<body>
+
+  <style type="text/css">
+
+    .blank-component{
+      width: 100px;
+      height: 100px;
+    }
+    .example-component {
+      width: 100px;
+      height: 100px;
+      transition: height 1s, width 1s;
+    }
+    .example-component:hover{
+      height: 150px;
+      width: 150px;
+    }
+
+    .tooltip{
+      position:relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext{
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align:center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 125%;
+    }
+
+    .tooltip .tooltiptext::after{
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent #555 transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext{
+      visibility: visible;
+    }
+  </style>
+
+  <!-- DESIGNATED LOCATION TO INSERT REACT CONTENT  -->
+  <div id="app">React has not rendered yet</div>
+
+  <!-- JAVASCRIPT -->
+  <script type="text/babel">
+    var turn = 'O';
+
+    class Board extends React.Component{
+
+
+      constructor(props){
+        super(props);
+        this.testname = 'aasd';
+        this.state = {
+          gameBoard: ['','','','','','','','','']
+        }
+      }
+
+      onClickHandlerTestEvent(){
+        console.log(this.state.gameBoard);
+        console.log(this.testname);
+      }
+
+      updateBoard(id, val){
+        console.log(id + val);
+        this.state.gameBoard[id] = val;
+        this.forceUpdate();
+      }
+
+      render(){
+        return(
+          <div>
+            <table>
+              <tbody>
+              <tr>
+                <td><ImageCell id='1' updateMethod={this.updateBoard.bind(this)} /></td>
+                <td><ImageCell id='2' updateMethod={this.updateBoard.bind(this)}/></td>
+                <td><ImageCell id='3' updateMethod={this.updateBoard.bind(this)} /></td>
+              </tr>
+              <tr>
+                <td><ImageCell id='4' updateMethod={this.updateBoard.bind(this)} /></td>
+                <td><ImageCell id='5' updateMethod={this.updateBoard.bind(this)} /></td>
+                <td><ImageCell id='6' updateMethod={this.updateBoard.bind(this)} /></td>
+              </tr>
+              <tr>
+                <td><ImageCell id='7' updateMethod={this.updateBoard.bind(this)} /></td>
+                <td><ImageCell id='8' updateMethod={this.updateBoard.bind(this)} /></td>
+                <td><ImageCell id='9' updateMethod={this.updateBoard.bind(this)} /></td>
+              </tr>
+              </tbody>
+            </table>
+            <button className='tooltip'onClick={this.onClickHandlerTestEvent.bind(this)}> Test <span className='tooltiptext'>Get board values</span> </button>
+          </div>
+          );
+      }
+    }
+
+    class ImageCell extends React.Component{
+
+      constructor(props){
+        super(props);
+        this.state = {
+          id: props.id,
+          val: '',
+          imgSrc: 'blank.png',
+          updateBoard: this.props.updateMethod
+        }
+      }
+
+      updatePiece(){
+        this.updateTurn();
+        this.updateImage();
+        this.state.updateBoard(this.state.id, this.state.val);
+      }
+
+
+      updateTurn(){
+        switch(turn){
+          case 'O':
+            turn='X'
+            break;
+          case 'X':
+            turn = 'O'
+            break;
+        }
+      }
+
+      updateImage(){
+        switch(this.state.val){
+          case 'X':
+            this.setState({
+              imgSrc: 'x.png'
+            })
+            break;
+          case 'O':
+            this.setState({
+              imgSrc: 'c.png'
+            })
+            break;
+          case '':
+            this.setState({
+              imgSrc: 'blank.png'
+            })
+            break;
+        }
+      }
+
+      onClickHandlerStateUpdate(){
+        if(this.state.val == ''){
+          this.setState({
+            val: turn
+          }, this.updatePiece);
+        }
+        else{
+          this.setState({
+            val: turn
+          }, this.updatePiece);
+        }
+      }
+
+
+      render(){
+
+        var componentClasses = 'example-component';
+
+        if(this.state.val == ''){
+          var componentClass = 'blank-component';
+        }
+        else{
+          var componentClass = componentClasses;
+        }
+
+        return(
+
+          <div>
+            <img className={componentClass} onClick={this.onClickHandlerStateUpdate.bind(this)} src={this.state.imgSrc}></img>
+          </div>
+        );
+      }
+
+   }
+
+
+    ReactDOM.render(
+      <Board/>,
+      document.getElementById("app")
+    );
+  </script>
+
+</body>
+</html>
